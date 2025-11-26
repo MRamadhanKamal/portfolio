@@ -629,6 +629,14 @@
             padding: 60px 25px;
         }
 
+        .about-image img {
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+
         .contact-links a {
             display: block;
             margin: 15px auto;
