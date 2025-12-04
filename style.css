@@ -463,6 +463,44 @@
             text-decoration: none;
         }
 
+        /* Hilangkan overlay default */
+        .special-card::before {
+            content: none !important;
+        }
+
+        /* Overlay khusus dengan dua ikon */
+        .custom-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .special-card:hover .custom-overlay {
+            opacity: 1;
+        }
+
+        /* Styling ikon */
+        .custom-overlay a {
+            color: #ff4b4b;
+            font-size: 40px;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .custom-overlay a:hover {
+            transform: scale(1.2);
+        }
+
+
 
         /* =========================
         CONTACT SECTION
