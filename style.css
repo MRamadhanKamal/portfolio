@@ -1135,6 +1135,14 @@
                 border-radius: 10px !important;
                 padding: 15px !important;
                 margin-bottom: 20px !important;
+                box-shadow: none !important;
+            }
+
+            /* REMOVE SHADOWS TO PREVENT MASSIVE PDF SIZE BLOAT */
+            * {
+                box-shadow: none !important;
+                text-shadow: none !important;
+                filter: none !important;
             }
             .print-profile-img {
                 width: 90px !important;
