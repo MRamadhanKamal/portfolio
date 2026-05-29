@@ -149,6 +149,29 @@
         color: #aaa;
         }
 
+        .btn-print-pdf {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 10px;
+        margin-top: 30px;
+        padding: 14px 32px;
+        background: linear-gradient(90deg, #ff4b4b, #ff2a2a);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        border-radius: 30px;
+        box-shadow: 0 5px 20px rgba(255, 75, 75, 0.4);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        }
+
+        .btn-print-pdf:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 75, 75, 0.6);
+        color: #fff;
+        }
+
         /* =========================
         ABOUT SECTION
         ========================= */
@@ -1096,4 +1119,140 @@
             font-size: 13px;
             padding: 20px;
         }
+        }
+
+        /* Hide print header on normal web view */
+        .print-cv-header { display: none; }
+
+        /* =========================
+        PRINT STYLES (PDF EXPORT - VISUAL PORTFOLIO)
+        ========================= */
+        @media print {
+            /* Remove default browser headers/footers (date, time, URL) */
+            @page {
+                margin: 0;
+            }
+
+            /* Force browsers to print the dark background and colors */
+            html, body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background-color: #0f0f13 !important;
+                color: #d1d5db !important;
+                padding: 15mm 15mm !important; /* Add safe margins inside the page */
+            }
+
+            /* Hide Web-only navigation & buttons */
+            header, .btn-print-pdf {
+                display: none !important;
+            }
+
+            /* Print Header Styling (Dark Theme) */
+            .print-cv-header {
+                display: flex !important;
+                align-items: center !important;
+                background-color: #1a1a1a !important;
+                border: 1px solid #333 !important;
+                border-radius: 10px !important;
+                padding: 15px !important;
+                margin-bottom: 20px !important;
+            }
+            .print-profile-img {
+                width: 90px !important;
+                height: 90px !important;
+                border-radius: 50% !important;
+                margin-right: 25px !important;
+                object-fit: cover !important;
+            }
+            .print-cv-info h1 { font-size: 20pt !important; margin: 0 0 5px 0 !important; color: #fff !important; }
+            .print-cv-info h2 { font-size: 12pt !important; color: #aaa !important; margin: 0 0 8px 0 !important; }
+            .print-cv-links { font-size: 9pt !important; color: #ccc !important; margin-bottom: 5px !important; }
+            .print-cv-links span { margin-right: 5px !important; }
+            .print-cv-portfolio { font-size: 10pt !important; color: #fff !important; }
+            .print-cv-portfolio strong { color: #ff4b4b !important; }
+
+            /* Restore Hero Section */
+            .hero {
+                display: flex !important;
+                padding-top: 40px !important;
+            }
+
+            /* Fix scroll animation bug so nothing is invisible */
+            .animate-target {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            /* Hide decorative shines that freeze/glitch in PDF */
+            .skill::before, .project-card::before, .cert-card::before, .timeline-item::before {
+                display: none !important;
+            }
+
+            /* Prevent elements from being sliced in half across PDF pages */
+            section {
+                page-break-inside: auto;
+            }
+            .project-card, .timeline-item, .education-card, .cert-card, .skill, .about-container {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                overflow: visible !important;
+            }
+
+            /* Ensure grids stay as Flexbox on PDF to avoid Grid overlap bugs */
+            .project-grid {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: space-between !important;
+            }
+            .project-grid > a, .project-grid > div {
+                width: 48% !important;
+                box-sizing: border-box !important;
+                margin-bottom: 20px !important;
+            }
+
+            /* Fix typing animation in Hero so it shows fully */
+            .hero-text h2 span { height: auto !important; overflow: visible !important; }
+            .hero-text h2 span span { animation: none !important; transform: none !important; display: none !important; }
+            .hero-text h2 span span:nth-child(2) { display: inline-block !important; }
+
+            /* Print URLs under links so recruiters can type them */
+            a { text-decoration: none !important; }
+            .project-grid > a[href]::after {
+                content: " \A 🔗 " attr(href);
+                white-space: pre-wrap;
+                font-size: 10pt !important;
+                color: #ff4b4b !important;
+                word-wrap: break-word;
+                display: block;
+                margin-top: 10px;
+                background: rgba(255, 75, 75, 0.15);
+                padding: 5px 8px;
+                border-radius: 5px;
+            }
+
+            /* CNN Project Links exception */
+            .special-card .custom-overlay {
+                display: flex !important;
+                flex-direction: column !important;
+                position: static !important;
+                height: auto !important;
+                opacity: 1 !important;
+                background: none !important;
+                margin-top: 15px !important;
+                gap: 10px !important;
+            }
+            .special-card .custom-overlay a { display: block !important; font-size: 10pt !important; color: #ff4b4b !important; background: rgba(255, 75, 75, 0.15) !important; padding: 5px 8px !important; border-radius: 5px !important; }
+            .special-card .custom-overlay a i { display: none !important; }
+            .special-card .custom-overlay a[href*="cnn-web-application"]::before { content: "🔗 Web App: "; font-weight: bold; }
+            .special-card .custom-overlay a[href*="cnn-mr-team"]::before { content: "🔗 AI Model: "; font-weight: bold; }
+            .special-card .custom-overlay a::after {
+                content: " \A " attr(href);
+                white-space: pre-wrap;
+                display: block;
+                font-size: 10pt !important;
+                color: #ff4b4b !important;
+                word-wrap: break-word !important;
+                margin-top: 5px !important;
+            }
         }
